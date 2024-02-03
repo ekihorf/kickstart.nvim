@@ -71,7 +71,6 @@ require('lazy').setup({
 
   -- Git related plugins
   'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -190,17 +189,15 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+    'RRethy/nvim-base16',
     priority = 1000,
     lazy = false,
-    config = function()
-      require('onedark').setup {
-        -- Set a style preset. 'dark' is default.
-        style = 'dark', -- dark, darker, cool, deep, warm, warmer, light
-      }
-      require('onedark').load()
-    end,
+    -- config = function()
+      -- require('base16-colorscheme').setup {
+      --   -- style = 'dark', -- dark, darker, cool, deep, warm, warmer, light
+      -- }
+      -- require('base16-colorscheme').load()
+    -- end,
   },
 
   {
@@ -272,6 +269,13 @@ require('lazy').setup({
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
+  --
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+  }
 }, {})
 
 -- [[ Setting options ]]
@@ -314,6 +318,11 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
+vim.cmd [[colorscheme base16-outrun-dark]]
+
+vim.diagnostic.config({
+  virtual_text = false,
+})
 
 -- [[ Basic Keymaps ]]
 
@@ -428,7 +437,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'lua', 'python', 'rust', 'vimdoc', 'vim', 'bash' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -575,7 +584,7 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
+  clangd = {},
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
