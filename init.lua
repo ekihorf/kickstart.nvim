@@ -352,9 +352,7 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- Tree keymap
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', {
-  noremap = true
-})
+vim.keymap.set('n', '<leader>tt', ':NvimTreeToggle<CR>', { desc = "toggle tree view" })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
